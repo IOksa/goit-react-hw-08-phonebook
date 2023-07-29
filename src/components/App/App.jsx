@@ -6,13 +6,8 @@ import { PrivateRoute } from '../PrivateRoute';
 import { RestrictedRoute } from '../RestrictedRoute';
 import { refreshUser } from 'redux/auth/operations';
 import { useAuth } from 'hooks';
-
-// import ContactForm from '../ContactForm/ContactForm';
-// import ContactsList from '../ContactsList/ContactsList';
-// import Filter from '../Filter/Filter';
-// import Container from '../Container/Container';
-
-// import css from './App.module.css';
+import CircularWithValueLabel from 'components/Spinner/Progress';
+import css from './App.module.css';
 
 const HomePage = lazy(() => import('pages/Home'));
 const RegisterPage = lazy(() => import('pages/Register'));
@@ -29,7 +24,13 @@ const App=()=>{
 
 
   return isRefreshing ? (
-      <b>Refreshing user...</b>
+      <>
+      <div className={css.progressWrap}>
+        <b className={css.text}>Refreshing user...</b>
+        <br/>
+        <CircularWithValueLabel/>
+      </div>
+      </>
       ) : (
         <Routes>
           <Route path="/" element={<Layout />}>
@@ -60,13 +61,3 @@ const App=()=>{
 
 export default App;
 
-
-//   <>
-  //   <Container>
-  //     <h1 className={css.phonebook__title}>Phonebook</h1>
-  //     <ContactForm />
-  //     <Filter/>
-  //     <ContactsList/>
-  //   </Container>
-  //   </>
-  // );

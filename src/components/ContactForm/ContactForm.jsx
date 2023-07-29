@@ -7,7 +7,7 @@ import {getContactsState} from 'redux/contacts/selectors';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ContactForm = () => {
+const ContactForm = ({onCloseModal}) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
@@ -40,6 +40,7 @@ const ContactForm = () => {
 
         setName('');
         setNumber('');
+        onCloseModal();
     };
  
 
@@ -88,10 +89,11 @@ const ContactForm = () => {
                 onChange={handleChange}
                 className={css.phonebook__formContactInput}
                 />
-            
+            <div className={css.buttonWrap}>
             <button type="submit" className={css.form__button}>
             Add contact
             </button>
+            </div>
         </form>
         <ToastContainer autoClose="3000" theme="colored"/>
         </>

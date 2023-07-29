@@ -4,3 +4,16 @@
     color: var(--dark-main-color);
 
 }
+
+.progressWrap{
+    margin-left: 100px;
+    
+}
+
+
+.wrap{
+    display: flex;
+    gap: 36px;
+    flex-direction:column;
+
+}

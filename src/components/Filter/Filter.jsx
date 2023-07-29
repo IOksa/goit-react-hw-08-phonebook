@@ -13,11 +13,11 @@ const Filter = () => {
   };
 
   return (
-    <>
+    <div className={css.filter__wrap}>
       <label className={css.filter__label}>Find contacts by name </label>
       <input type="text" value={stateFilter} placeholder='search...' onChange={changeFilter} className={css.filter__input}/>
-    
-    </>
+      
+    </div>
   );
 }
 

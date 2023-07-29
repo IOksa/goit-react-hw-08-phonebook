@@ -20,17 +20,17 @@ const ContactsList = ()=>{
 
 
     return (
-        <>
-        <h2 className={css.contactList__title}>Contacts</h2>
-        <ul className={css.contactList__list}>
-            {visibleContacts.map(contact=>(
-                <li key={contact.id} className={css.contactList__item}>
-                    <ContactsListItem contact={contact}/>
-                </li>
-            
-            ))}
-        </ul>
-        </>
+        <div>
+            <h2 className={css.contactList__title}>Contacts</h2>
+            <ul className={css.contactList__list}>
+                {visibleContacts.map(contact=>(
+                    <li key={contact.id} className={css.contactList__item}>
+                        <ContactsListItem contact={contact}/>
+                    </li>
+                
+                ))}
+            </ul>
+        </div>
     )
 };
 

@@ -1,0 +1,32 @@
+@import '../../vars.css';
+
+/*
+ * Стили компонента Modal
+ */
+
+ .Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 0, 0, 0.8);
+    z-index: 1200;
+  }
+  
+  .Modal {
+    width: 100%;
+    max-width: 300px;
+    max-height: 260px;
+    background-color: var(--white);
+    padding: 40px 24px;
+    border-radius: 18px;
+    border: 2px solid var(--dark-main-color);
+
+    transform: scale(1.1);
+    transition: transform 200ms ease-in-out;
+  }
+  

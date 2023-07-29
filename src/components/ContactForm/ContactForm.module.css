@@ -1,11 +1,11 @@
 @import '../../vars.css';
 
 .phonebook__formContact{
-    width: 350px;
-    border: 1px solid var(--dark);
+    /* width: 350px;
+    border: 1px solid var(--dark); */
 
-    padding: 24px;
-    margin-bottom: 50px;
+    /* padding: 24px; */
+    /* margin-bottom: 50px; */
 
     display: flex;
     flex-direction: column;
@@ -16,7 +16,8 @@
 }
 
 .phonebook__formContactInput{
-    width: 250px;
+   
+    min-width: 250px;
     height: 40px;
 
     margin-bottom: 24px;
@@ -36,6 +37,10 @@
     
 }
 
+.buttonWrap{
+    display: flex;
+    justify-content: center;
+}
 .form__button{
     width: 250px;
     height: 50px;
@@ -46,6 +51,7 @@
     background-color: var(--light-main-color);
     color: var(--white);
     cursor: pointer;
+
 
     
 }
