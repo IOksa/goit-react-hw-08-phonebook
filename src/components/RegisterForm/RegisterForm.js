@@ -39,7 +39,7 @@ export const RegisterForm = () => {
         <Button variant="contained" type="submit">Register</Button>
       </FormControl>
 
-      </Box>
+    </Box>
 
 
 

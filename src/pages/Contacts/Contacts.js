@@ -6,6 +6,7 @@ import ContactsList from 'components/ContactsList/ContactsList';
 import Filter from 'components/Filter/Filter';
 import { fetchContacts } from 'redux/contacts/operations';
 import { getIsLoading } from 'redux/contacts/selectors';
+import css from './Contacts.module.css';
 
 export default function Contacts() {
   const dispatch = useDispatch();
@@ -20,7 +21,7 @@ export default function Contacts() {
       <Helmet>
         <title>Your contacts</title>
       </Helmet>
-      <h1>Phonebook</h1>
+      <h1 className={css.phonebook__title}>Phonebook</h1>
       <ContactForm />
       <Filter />
       <div>{isLoading && 'Request in progress...'}</div>
