@@ -8,7 +8,7 @@ import EditContactForm from '../ContactForm/EditContactForm';
 import { ButtonClose } from 'components/ButtonClose/ButtonClose';
 
 const ContactsListItem = ({contact:{id, name, number}}) => {
-        const [isDeleting, setIsDeleting] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const dispatch = useDispatch();
 
