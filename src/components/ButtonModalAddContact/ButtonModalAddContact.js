@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 import React, { useState } from 'react';
 import Modal from '../Modal/Modal';
-import ContactForm from '../ContactForm/ContactForm';
+import AddContactForm from '../ContactForm/AddContactForm';
 import { ButtonClose } from 'components/ButtonClose/ButtonClose';
 import css from './ButtonModalAddContact.module.css';
 
@@ -37,7 +37,7 @@ export const ButtonModalAddContact = ()=>{
         {isModalOpen && (
         <Modal onCloseModal={onCloseModal} >
           <ButtonClose onCloseModal={onCloseModal}/>
-          <ContactForm onCloseModal={onCloseModal}/>
+          <AddContactForm onCloseModal={onCloseModal}/>
         </Modal>
         )} 
     </>

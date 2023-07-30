@@ -12,8 +12,8 @@ const ContactsList = ()=>{
       const normalizedFilter = stateFilter.toLowerCase();
 
       return stateContacts.filter(contact =>
-        contact.name.toLowerCase().includes(normalizedFilter),
-      );
+        contact.name.toLowerCase().includes(normalizedFilter)).sort((firstContact, secondContact)=>firstContact.name.localeCompare(secondContact.name));
+   
     };
   
    const visibleContacts = getVisibleContacts();

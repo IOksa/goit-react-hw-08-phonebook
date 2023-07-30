@@ -3,11 +3,10 @@ import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from "redux/contacts/operations";
 import {getContactsState} from 'redux/contacts/selectors';
-
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-const ContactForm = ({onCloseModal}) => {
+const AddContactForm = ({onCloseModal}) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
@@ -48,7 +47,7 @@ const ContactForm = ({onCloseModal}) => {
         const normalizedName = name.toLowerCase();
         
         const isInContacts=stateContacts.findIndex(({name})=>name.toLowerCase()===normalizedName );
-    
+        console.log("isInContacts", isInContacts);
         if(isInContacts!==-1){
           toast.error(`${name} is already in contacts`);
         }
@@ -104,4 +103,4 @@ const ContactForm = ({onCloseModal}) => {
     
 }
 
-export default ContactForm;
+export default AddContactForm;
