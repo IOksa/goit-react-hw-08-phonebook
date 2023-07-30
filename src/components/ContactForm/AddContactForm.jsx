@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from "redux/contacts/operations";
 import {getContactsState} from 'redux/contacts/selectors';
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import toast from 'react-hot-toast';
 
 const AddContactForm = ({onCloseModal}) => {
     const [name, setName] = useState('');
@@ -45,11 +45,11 @@ const AddContactForm = ({onCloseModal}) => {
 
     const addContacts = (name, number)=> {  
         const normalizedName = name.toLowerCase();
-        
         const isInContacts=stateContacts.findIndex(({name})=>name.toLowerCase()===normalizedName );
-        console.log("isInContacts", isInContacts);
+
         if(isInContacts!==-1){
-          toast.error(`${name} is already in contacts`);
+          toast.error(`${name} is already in contacts`, {duration: 3000, position: 'top-center'});
+          
         }
         else{
           const newContact={
@@ -64,6 +64,7 @@ const AddContactForm = ({onCloseModal}) => {
    
     return(
       <>
+      
         <form onSubmit={handleSubmit} className={css.phonebook__formContact}>
             <label className={css.phonebook__formContactLabel}>Name</label>
             <input
@@ -94,7 +95,7 @@ const AddContactForm = ({onCloseModal}) => {
             </button>
             </div>
         </form>
-        <ToastContainer autoClose="3000" theme="colored"/>
+        
         </>
     
     );
@@ -104,3 +105,9 @@ const AddContactForm = ({onCloseModal}) => {
 }
 
 export default AddContactForm;
+
+AddContactForm.propTypes={
+  onCloseModal: PropTypes.func.isRequired,
+
+}; 
+

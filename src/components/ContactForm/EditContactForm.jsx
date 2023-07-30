@@ -1,15 +1,19 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { editContact } from "redux/contacts/operations";
+import {getContactsState} from 'redux/contacts/selectors';
+import toast from 'react-hot-toast';
 
-
+ 
 
 const EditContactForm = ({currentId, currentName, currentNumber, onCloseModal}) => {
     const [name, setName] = useState(currentName);
     const [number, setNumber] = useState(currentNumber);
 
     const dispatch = useDispatch();
+    const stateContacts=useSelector(getContactsState);
 
     const handleChange = evt => {
         const { name, value } = evt.target;
@@ -32,18 +36,32 @@ const EditContactForm = ({currentId, currentName, currentNumber, onCloseModal}) 
     
     const handleSubmit = e => {
         e.preventDefault();
+        addContacts(name, number);
+      
+    
+    };
+ 
 
+    const addContacts = (name, number)=> {  
+      const normalizedName = name.toLowerCase();
+      
+      const isInContacts=stateContacts.findIndex(({name})=>name.toLowerCase()===normalizedName );
+   
+      if(isInContacts!==-1){
+        toast.error(`${name} is already in contacts`, {duration: 3000, position: 'top-center'});
+       
+      }
+      else{
         const newContact={
           name:name,
           number:number,
         }
-        console.log("currentId=", currentId);
-        console.log("newContact=", newContact);
         dispatch(editContact({currentId,newContact}));
-
         onCloseModal();
+      }
+     
+  
     };
- 
    
     return(
       <>
@@ -89,3 +107,11 @@ const EditContactForm = ({currentId, currentName, currentNumber, onCloseModal}) 
 }
 
 export default EditContactForm;
+
+EditContactForm.propTypes={
+  onCloseModal: PropTypes.func.isRequired,
+  currentId: PropTypes.string.isRequired,
+  currentName:  PropTypes.string.isRequired,
+  currentNumber: PropTypes.string.isRequired,
+
+}; 
