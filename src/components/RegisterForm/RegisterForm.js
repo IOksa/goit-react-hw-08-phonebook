@@ -18,7 +18,7 @@ export const RegisterForm = () => {
 
   useEffect(() => {
     if (error) {
-      toast.error('Wrong user, login or password! Please, try again');
+      toast.error('Wrong user, login or password! Please, try again', {duration: 2000});
       dispatch(clearError());
     }
   },[error, dispatch]);

@@ -18,7 +18,7 @@ export const LoginForm = () => {
   
   useEffect(() => {
     if (error) {
-      toast.error('Wrong login or password! Please, try again');
+      toast.error('Wrong login or password! Please, try again', {duration: 2000});
       dispatch(clearError());
     }
   },[error, dispatch]);
