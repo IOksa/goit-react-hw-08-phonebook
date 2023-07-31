@@ -1,12 +1,12 @@
 import ContactsListItem from '../ContactsListItem/ContactsListItem';
 import css from './ContactList.module.css';
 import { useSelector } from 'react-redux';
-import {getContactsState, getFilterState} from '../../redux/contacts/selectors';
+import {selectContactsState, selectFilterState} from '../../redux/contacts/selectors';
 
 const ContactsList = ()=>{
 
-    const stateContacts=useSelector(getContactsState);
-    const stateFilter=useSelector(getFilterState);
+    const stateContacts=useSelector(selectContactsState);
+    const stateFilter=useSelector(selectFilterState);
 
     const getVisibleContacts = () => {
       const normalizedFilter = stateFilter.toLowerCase();
@@ -20,7 +20,7 @@ const ContactsList = ()=>{
 
 
     return (
-        <div>
+        <div className={css.contactList__wrap}>
             <h2 className={css.contactList__title}>Contacts</h2>
             <ul className={css.contactList__list}>
                 {visibleContacts.map(contact=>(

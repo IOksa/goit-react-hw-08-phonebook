@@ -3,15 +3,25 @@ import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact } from "redux/contacts/operations";
-import {getContactsState} from 'redux/contacts/selectors';
+import {selectContactsState} from 'redux/contacts/selectors';
+// import { selectIsAdding } from 'redux/contacts/selectors';
+import {RotatingLinesSpinner} from '../Spinner/RotatingLinesSpinner';
 import toast from 'react-hot-toast';
 
 const AddContactForm = ({onCloseModal}) => {
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
+    const [isAdd, setIsAdd]=useState(false);
 
     const dispatch = useDispatch();
-    const stateContacts=useSelector(getContactsState);
+    const stateContacts=useSelector(selectContactsState);
+    // const isAdding = useSelector(selectIsAdding);
+
+   
+
+    // useEffect(()=>{
+    //   console.log("isAdding=",isAdding);
+    // },[isAdding]);
 
     const handleChange = evt => {
         const { name, value } = evt.target;
@@ -35,7 +45,10 @@ const AddContactForm = ({onCloseModal}) => {
     const handleSubmit = e => {
         e.preventDefault();
 
+        setIsAdd(true);
+
         addContacts(name, number);
+        setIsAdd(false);
 
         setName('');
         setNumber('');
@@ -48,7 +61,7 @@ const AddContactForm = ({onCloseModal}) => {
         const isInContacts=stateContacts.findIndex(({name})=>name.toLowerCase()===normalizedName );
 
         if(isInContacts!==-1){
-          toast.error(`${name} is already in contacts`, {duration: 3000, position: 'top-center'});
+          toast.error(`${name} is already in contacts`, {duration: 1000, position: 'top-center'});
           
         }
         else{
@@ -90,8 +103,8 @@ const AddContactForm = ({onCloseModal}) => {
                 className={css.phonebook__formContactInput}
                 />
             <div className={css.buttonWrap}>
-            <button type="submit" className={css.form__button}>
-            Add contact
+            <button type="submit" className={css.form__button} disabled={isAdd}>
+            {isAdd ? (<RotatingLinesSpinner/>) : ('Add contact')}
             </button>
             </div>
         </form>

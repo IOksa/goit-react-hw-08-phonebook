@@ -6,6 +6,8 @@ import React, { useState } from 'react';
 import Modal from '../Modal/Modal';
 import EditContactForm from '../ContactForm/EditContactForm';
 import { ButtonClose } from 'components/ButtonClose/ButtonClose';
+import { RotatingLinesSpinner } from 'components/Spinner/RotatingLinesSpinner';
+
 
 const ContactsListItem = ({contact:{id, name, number}}) => {
     const [isDeleting, setIsDeleting] = useState(false);
@@ -18,8 +20,6 @@ const ContactsListItem = ({contact:{id, name, number}}) => {
         setIsDeleting(false);
     }
   
-  
-
     const onOpenModal = () => {
         setIsModalOpen(true);
         window.addEventListener('keydown', onEscKeyPress);
@@ -51,8 +51,10 @@ const ContactsListItem = ({contact:{id, name, number}}) => {
         type="button"
         onClick={handleDeleteContact}
         className={css.contactListItem__button}
+        
         >
-        Delete
+        {isDeleting ? <RotatingLinesSpinner/>:'Delete'}
+       
         </button>
         <button
         type="button"

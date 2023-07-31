@@ -4,6 +4,7 @@ import {fetchContacts, addContact, deleteContact, editContact} from './operation
 
 const handlePending = state => {
   state.isLoading = true;
+
 };
 
 const handleRejected = (state, action) => {
@@ -15,14 +16,29 @@ const handleFulfilled = (state, action)=>{
   state.isLoading = false;
   state.error = null;
   state.contacts = action.payload;
+
+  
+};
+const handleAddContactPending = state => {
+  state.isLoading = true;
+
+  state.isAdding = true;
 };
 
 const handleAddContactFulfilled=(state, action)=>{
   state.isLoading = false;
   state.error = null;
   state.contacts.push(action.payload);
+
+  state.isAdding = false;
 };
 
+const handleAddContactRejected = (state, action) => {
+  state.isLoading = false;
+  state.error = action.payload;
+
+  state.isAdding = false;
+};
 const handleDeleteContactFulfilled = (state, action)=>{
   state.isLoading = false;
   state.error = null;
@@ -50,6 +66,7 @@ const contactsSlice = createSlice({
       contacts:[],
       isLoading: false,
       error: null,
+      isAdding: false,
     },
     
     extraReducers: (builder) => {
@@ -57,9 +74,9 @@ const contactsSlice = createSlice({
             .addCase(fetchContacts.pending, handlePending)
             .addCase(fetchContacts.fulfilled, handleFulfilled)
             .addCase(fetchContacts.rejected, handleRejected)
-            .addCase(addContact.pending,handlePending)
+            .addCase(addContact.pending,handleAddContactPending)
             .addCase(addContact.fulfilled, handleAddContactFulfilled)
-            .addCase(addContact.rejected, handleRejected)
+            .addCase(addContact.rejected, handleAddContactRejected)
             .addCase(deleteContact.pending, handlePending)
             .addCase(deleteContact.fulfilled, handleDeleteContactFulfilled)
             .addCase(deleteContact.rejected, handleRejected) 

@@ -6,14 +6,28 @@ const initialState = {
   token: null,
   isLoggedIn: false,
   isRefreshing: false,
+
+  error: null,
+  isLoading: false,
+};
+
+const handlePending =(state)=>{
+  state.isLoading = true;
 };
 
 const handleFulfilled =(state, action)=>{
     state.user = action.payload.user;
     state.token = action.payload.token;
     state.isLoggedIn = true;
+
+    state.error = null;
+    state.isLoading = false;
 };
 
+const handleRejected=(state, action)=>{
+  state.error=action.payload;
+  state.isLoading = false;
+}
 const handleLogOutFulfilled = (state)=>{
     state.user = { name: null, email: null };
     state.token = null;
@@ -37,10 +51,19 @@ const handleRefreshUserRejected = (state)=>{
 const authSlice = createSlice({
   name: 'auth',
   initialState,
+  reducers: {
+    clearError(state) {
+      state.error = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
+    .addCase(register.pending, handlePending)
     .addCase(register.fulfilled, handleFulfilled)
+    .addCase(register.rejected, handleRejected)
+    .addCase(logIn.pending, handlePending)
     .addCase(logIn.fulfilled, handleFulfilled)
+    .addCase(logIn.rejected, handleRejected)
     .addCase(logOut.fulfilled, handleLogOutFulfilled)
     .addCase(refreshUser.pending, handleRefreshUserPending)
     .addCase(refreshUser.fulfilled, handleRefreshUserFulfilled)
@@ -48,4 +71,5 @@ const authSlice = createSlice({
   },
 });
 
+export const { clearError } = authSlice.actions;
 export const authReducer = authSlice.reducer;

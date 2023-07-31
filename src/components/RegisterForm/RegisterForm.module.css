@@ -7,3 +7,7 @@
     flex-direction: column;
     margin-bottom: 16px;
   }
+
+  .Button{
+    height: 55px;
+  }

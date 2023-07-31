@@ -3,17 +3,18 @@ import PropTypes from 'prop-types';
 import css from './ContactForm.module.css';
 import { useDispatch, useSelector} from 'react-redux';
 import { editContact } from "redux/contacts/operations";
-import {getContactsState} from 'redux/contacts/selectors';
+import {selectContactsState} from 'redux/contacts/selectors';
 import toast from 'react-hot-toast';
-
+import {RotatingLinesSpinner} from '../Spinner/RotatingLinesSpinner';
  
 
 const EditContactForm = ({currentId, currentName, currentNumber, onCloseModal}) => {
     const [name, setName] = useState(currentName);
     const [number, setNumber] = useState(currentNumber);
+    const [isAdd, setIsAdd]=useState(false);
 
     const dispatch = useDispatch();
-    const stateContacts=useSelector(getContactsState);
+    const stateContacts=useSelector(selectContactsState);
 
     const handleChange = evt => {
         const { name, value } = evt.target;
@@ -36,8 +37,9 @@ const EditContactForm = ({currentId, currentName, currentNumber, onCloseModal}) 
     
     const handleSubmit = e => {
         e.preventDefault();
+        setIsAdd(true);
         addContacts(name, number);
-      
+        setIsAdd(false);
     
     };
  
@@ -92,8 +94,8 @@ const EditContactForm = ({currentId, currentName, currentNumber, onCloseModal}) 
                 className={css.phonebook__formContactInput}
                 />
             <div className={css.buttonWrap}>
-            <button type="submit" className={css.form__button}>
-            Edit contact
+            <button type="submit" className={css.form__button} disabled={isAdd}>
+            {isAdd ? (<RotatingLinesSpinner/>) : ('Edit contact')}
             </button>
             </div>
         </form>

@@ -5,14 +5,14 @@ import Container from 'components/Container/Container';
 import ContactsList from 'components/ContactsList/ContactsList';
 import Filter from 'components/Filter/Filter';
 import { fetchContacts } from 'redux/contacts/operations';
-import { getIsLoading } from 'redux/contacts/selectors';
+import { selectIsLoading } from 'redux/contacts/selectors';
 import css from './Contacts.module.css';
 import { ButtonModalAddContact } from 'components/ButtonModalAddContact/ButtonModalAddContact';
 import {CircleSpinner} from 'components/Spinner/CircleSpinner';
 
 export default function Contacts() {
   const dispatch = useDispatch();
-  const isLoading = useSelector(getIsLoading);
+  const isLoading = useSelector(selectIsLoading);
 
   useEffect(() => {
     dispatch(fetchContacts());

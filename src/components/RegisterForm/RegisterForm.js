@@ -1,14 +1,27 @@
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
+import {useEffect} from 'react';
 import { register } from 'redux/auth/operations';
-// import css from './RegisterForm.module.css';
+import { clearError } from 'redux/auth/slice';
+import css from './RegisterForm.module.css';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import FormControl from '@mui/material/FormControl';
-
+import { useAuth } from 'hooks';
+import { RotatingLinesSpinner } from 'components/Spinner/RotatingLinesSpinner';
+import toast from 'react-hot-toast';
 
 export const RegisterForm = () => {
   const dispatch = useDispatch();
+
+  const {isLoading, error} = useAuth();
+
+  useEffect(() => {
+    if (error) {
+      toast.error('Wrong user, login or password! Please, try again');
+      dispatch(clearError());
+    }
+  },[error, dispatch]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -37,7 +50,8 @@ export const RegisterForm = () => {
         <TextField label="Username" type="text" name="name" variant="outlined" size="Normal" margin="normal"/>
         <TextField label="Email" type="email" name="email" variant="outlined" size="Normal" margin="normal"/>
         <TextField label="Password"  type="password" name="password" variant="outlined" size="Normal" margin="normal"/>
-        <Button variant="contained" type="submit">Register</Button>
+        <Button variant="contained" type="submit" disabled={isLoading} className={css.Button}>        
+        {isLoading ? <RotatingLinesSpinner/> : 'Register'}</Button>
       </FormControl>
 
     </Box>
